@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspTemp", "AspTemp\AspTemp.csproj", "{C5764E5B-4D09-4227-97DE-8C6E8E875F03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{54C6DA4E-DADB-4D1E-B248-73A16EA1C77D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{C489729C-031C-4CA7-867A-A2193DF43E66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5764E5B-4D09-4227-97DE-8C6E8E875F03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5764E5B-4D09-4227-97DE-8C6E8E875F03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5764E5B-4D09-4227-97DE-8C6E8E875F03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5764E5B-4D09-4227-97DE-8C6E8E875F03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54C6DA4E-DADB-4D1E-B248-73A16EA1C77D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54C6DA4E-DADB-4D1E-B248-73A16EA1C77D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54C6DA4E-DADB-4D1E-B248-73A16EA1C77D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54C6DA4E-DADB-4D1E-B248-73A16EA1C77D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C5764E5B-4D09-4227-97DE-8C6E8E875F03} = {C489729C-031C-4CA7-867A-A2193DF43E66}
+		{54C6DA4E-DADB-4D1E-B248-73A16EA1C77D} = {C489729C-031C-4CA7-867A-A2193DF43E66}
+	EndGlobalSection
+EndGlobal
