@@ -1,7 +1,7 @@
+using AspTemp.Shared.Application.Contracts.ResultContracts;
 using MediatR;
-using Shared.Application.Contracts.Results;
 
-namespace Shared.Application.Contracts.Cqrs;
+namespace AspTemp.Shared.Application.Contracts.Cqrs;
 
 // command with no response
 public interface ICommand: IRequest<Result>;

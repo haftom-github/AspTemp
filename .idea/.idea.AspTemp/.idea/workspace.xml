@@ -10,6 +10,13 @@
   <component name="ChangeListManager">
     <list default="true" id="584f68df-8a0f-40dd-93ff-446b347de752" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AspTemp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AspTemp/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AspTemp.sln" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AspTemp/AspTemp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/AspTemp.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AspTemp/Common/Extensions/ResultExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/Application/Contracts/Cqrs/Cqrs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/Cqrs/Cqrs.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/Application/Contracts/Results/Failure.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Failure.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/Application/Contracts/Results/Result.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Result.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Shared/Shared.csproj" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,10 +27,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/AspTemp/Common/Extensions/ResultExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Shared/Application/Contracts/Cqrs/Cqrs.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Shared/Application/Contracts/Results/Failure.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Shared/Application/Contracts/Results/Result.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/Cqrs/Cqrs.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/Results/Failure.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/Results/IResult.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/Results/Result.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -96,7 +103,8 @@
       <option name="presentableId" value="Default" />
       <updated>1760686081738</updated>
       <workItem from="1760686083412" duration="8464000" />
-      <workItem from="1760946195956" duration="19197000" />
+      <workItem from="1760946195956" duration="19260000" />
+      <workItem from="1761022184160" duration="5216000" />
     </task>
     <servers />
   </component>

@@ -1,4 +1,4 @@
-namespace Shared.Application.Contracts.Results;
+namespace AspTemp.Shared.Application.Contracts.ResultContracts;
 
 public class Failure
 {

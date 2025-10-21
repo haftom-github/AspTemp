@@ -1,4 +1,4 @@
-namespace Shared.Application.Contracts.Results;
+namespace AspTemp.Shared.Application.Contracts.ResultContracts;
 
 public class Result
 {
@@ -7,6 +7,22 @@ public class Result
     public IReadOnlyList<Failure>? Failures { get; }
     public DateTime Timestamp { get; } = DateTime.UtcNow;
     
+    public IResult ToHttpResult()
+    {
+        if (!IsSuccess) return Results.Ok(this);
+        var firstFailure = Failures?[0];
+        return firstFailure?.Type switch
+        {
+            FailureType.NotFound => Results.NotFound(this),
+            FailureType.Conflict => Results.BadRequest(this),
+            FailureType.Unauthorized => Results.Unauthorized(),
+            FailureType.InvalidOperation => Results.BadRequest(this),
+            FailureType.Validation => Results.BadRequest(this),
+            FailureType.Unexpected => Results.InternalServerError(this),
+            _ => throw new ArgumentOutOfRangeException()
+        };
+    }
+
     protected Result(
         bool isSuccess, 
         string? message = null, 
