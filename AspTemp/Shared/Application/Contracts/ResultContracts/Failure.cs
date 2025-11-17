@@ -1,19 +1,13 @@
 namespace AspTemp.Shared.Application.Contracts.ResultContracts;
 
-public class Failure
+public record Failure(string Message, FailureType FailureType, IReadOnlyDictionary<string, object>? Metadata = null)
 {
-    public string Message { get; }
-    public FailureType Type { get; }
-    public IReadOnlyDictionary<string, object>? Metadata { get; }
+    public static ValidationFailure Validation(Dictionary<string, string> failures, string message = "one or more validation failures occurred") 
+        => new(message, failures);
     
-    protected Failure(string message, FailureType type, Dictionary<string, object>? metadata = null)
-    {
-        Message = message;
-        Type = type;
-        Metadata = metadata;
-    }
+    public static ValidationFailure Validation(string propertyName, string validationMessage)
+        => Validation(new Dictionary<string, string> { { propertyName, validationMessage } });
     
-    public static ValidationFailure Validation(string message, string key) => new(message, key);
     public static Failure NotFound(string message = "resource not found")
         => new(message, FailureType.NotFound);
     
@@ -33,16 +27,11 @@ public class Failure
         => new(message, type, metadata);
 }
 
-public class ValidationFailure : Failure
-{
-    public string PropertyName { get; }
-    
-    protected internal ValidationFailure(string message, string propertyName)
-        : base(message, FailureType.Validation)
-    {
-        PropertyName = propertyName;
-    }
-}
+public record ValidationFailure(
+    string Message,
+    IReadOnlyDictionary<string, string> Failures,
+    IReadOnlyDictionary<string, object>? Metadata = null) 
+    : Failure(Message, FailureType.Validation, Metadata);
 
 public enum FailureType
 {

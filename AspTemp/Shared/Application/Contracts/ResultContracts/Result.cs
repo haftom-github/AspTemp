@@ -4,14 +4,13 @@ public class Result
 {
     public bool IsSuccess { get; }
     public string? Message { get; }
-    public IReadOnlyList<Failure>? Failures { get; }
+    public Failure? Failure { get; }
     public DateTime Timestamp { get; } = DateTime.UtcNow;
     
     public IResult ToHttpResult()
     {
-        if (!IsSuccess) return Results.Ok(this);
-        var firstFailure = Failures?[0];
-        return firstFailure?.Type switch
+        if (IsSuccess) return Results.Ok(this);
+        return Failure!.FailureType switch
         {
             FailureType.NotFound => Results.NotFound(this),
             FailureType.Conflict => Results.BadRequest(this),
@@ -26,36 +25,33 @@ public class Result
     protected Result(
         bool isSuccess, 
         string? message = null, 
-        IEnumerable<Failure>? failures = null
-    )
-    {
+        Failure? failure = null
+    ){
         IsSuccess = isSuccess;
         Message = message;
-        Failures = failures?
-            .ToList()
-            .AsReadOnly();
+        Failure = failure;
     }
     
-    public static Result Success(string? message = null) 
+    public static Result Succeed(string? message = null) 
         => new(true, message);
     
-    public static Result<T> Success<T>(T value, string? message = null) 
+    public static Result Fail(Failure failure, string? message = null)
+        => new(false, message, failure);
+    
+    public static Result<T> Succeed<T>(T value, string? message = null) 
         => new(true, value, message);
     
-    public static PaginatedResult<T> Success<T>(IEnumerable<T> value, int pageNumber, int pageSize, int totalCount, string? message = null) 
-        => new(true, pageNumber, pageSize, totalCount, value, message);
+    public static Result<T> Fail<T>(Failure failure, string? message = null)
+        => new(false, failure:failure, message:message);
     
+    public static PaginatedResult<T> Succeed<T>(IEnumerable<T> items, int pageNumber, int pageSize, int totalCount, string? message = null)
+        => new(true, pageNumber,pageSize,totalCount,items, message);
     
+    public static PaginatedResult<T> FailPaginated<T>(Failure failure, string? message = null)
+        => new(false, failure:failure, message:message);
     
-    public static Result Failure(string? message = null, IEnumerable<Failure>? failures = null) 
-        => new(false, message, failures);
-
-    public static Result<T> Failure<T>(string? message = null, IEnumerable<Failure>? failures = null) 
-        => new(false, default, message, failures);
-    
-    public static PaginatedResult<T> FailurePaginated<T>(string? message = null, IEnumerable<Failure>? failures = null)
-        => new(false, failures:failures, message:message);
-
+    public static implicit operator Result(Failure failure)
+        => Fail(failure);
 }
 
 public class Result<T> : Result
@@ -66,15 +62,21 @@ public class Result<T> : Result
         ? throw new InvalidOperationException("Cannot access Value of a failed result") 
         : _value;
 
-    protected internal Result(bool isSuccess, T? value = default, string? message = null, IEnumerable<Failure>? failures = null)
-        : base(isSuccess, message, failures)
+    protected internal Result(bool isSuccess, T? value = default, string? message = null, Failure? failure = null)
+        : base(isSuccess, message, failure)
     {
         _value = value;
     }
+    
+    public static implicit operator Result<T>(T value)
+        => Succeed(value);
+    
+    public static implicit operator Result<T>(Failure failure)
+        => Fail<T>(failure);
 }
 
 
-public class PaginatedResult<T> : Result<IReadOnlyList<T>>
+public class PaginatedResult<T> : Result<IEnumerable<T>>
 {
     public int PageNumber { get; }
     public int PageSize { get; }
@@ -87,11 +89,14 @@ public class PaginatedResult<T> : Result<IReadOnlyList<T>>
         int totalCount = 0,
         IEnumerable<T>? value = null,
         string? message = null,
-        IEnumerable<Failure>? failures = null)
-        : base(isSuccess, value?.ToList().AsReadOnly(), message, failures)
+        Failure? failure = null)
+        : base(isSuccess, value, message, failure)
     {
         PageNumber = pageNumber;
         PageSize = pageSize;
         TotalCount = totalCount;
     }
+    
+    public static implicit operator PaginatedResult<T>(Failure failure)
+        => FailPaginated<T>(failure);
 }
