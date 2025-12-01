@@ -1,7 +1,19 @@
 namespace AspTemp.Shared.Application.Contracts.ResultContracts;
 
-public record Failure(string Message, FailureType FailureType, IReadOnlyDictionary<string, object>? Metadata = null)
+public class Failure
 {
+    public string Message { get; }
+
+    public FailureType FailureType { get; }
+    public IReadOnlyDictionary<string, object>? Metadata { get; }
+
+    protected Failure(string message, FailureType failureType, IDictionary<string, object>? metadata = null)
+    {
+        Message = message;
+        FailureType = failureType;
+        Metadata = metadata?.AsReadOnly();
+    }
+    
     public static ValidationFailure Validation(Dictionary<string, string> failures, string message = "one or more validation failures occurred") 
         => new(message, failures);
     
@@ -27,11 +39,19 @@ public record Failure(string Message, FailureType FailureType, IReadOnlyDictiona
         => new(message, type, metadata);
 }
 
-public record ValidationFailure(
-    string Message,
-    IReadOnlyDictionary<string, string> Failures,
-    IReadOnlyDictionary<string, object>? Metadata = null) 
-    : Failure(Message, FailureType.Validation, Metadata);
+public class ValidationFailure
+    : Failure
+{
+    public IReadOnlyDictionary<string, string> Failures;
+    protected internal ValidationFailure(
+        string message,
+        IDictionary<string, string> failures,
+        IDictionary<string, object>? metadata = null
+    ) : base(message, FailureType.Validation, metadata)
+    {
+        Failures = failures.AsReadOnly();
+    }
+}
 
 public enum FailureType
 {

@@ -1,9 +1,10 @@
 namespace AspTemp.Shared.Application.Contracts.ResultContracts;
 
-public class Result
+public class Result<T>
 {
-    public bool IsSuccess { get; }
-    public string? Message { get; }
+    private bool IsSuccess => Success != null;
+    public string Message => IsSuccess ? Success!.Message : Failure!.Message;
+    public Success<T>? Success { get; }
     public Failure? Failure { get; }
     public DateTime Timestamp { get; } = DateTime.UtcNow;
     
@@ -22,81 +23,24 @@ public class Result
         };
     }
 
-    protected Result(
-        bool isSuccess, 
-        string? message = null, 
-        Failure? failure = null
+    public Result(
+        Success<T> success
     ){
-        IsSuccess = isSuccess;
-        Message = message;
-        Failure = failure;
+        Success = success;
+        Failure = null;
     }
-    
-    public static Result Succeed(string? message = null) 
-        => new(true, message);
-    
-    public static Result Fail(Failure failure, string? message = null)
-        => new(false, message, failure);
-    
-    public static Result<T> Succeed<T>(T value, string? message = null) 
-        => new(true, value, message);
-    
-    public static Result<T> Fail<T>(Failure failure, string? message = null)
-        => new(false, failure:failure, message:message);
-    
-    public static PaginatedResult<T> Succeed<T>(IEnumerable<T> items, int pageNumber, int pageSize, int totalCount, string? message = null)
-        => new(true, pageNumber,pageSize,totalCount,items, message);
-    
-    public static PaginatedResult<T> FailPaginated<T>(Failure failure, string? message = null)
-        => new(false, failure:failure, message:message);
-    
-    public static implicit operator Result(Failure failure)
-        => Fail(failure);
-}
 
-public class Result<T> : Result
-{
-    private readonly T? _value;
-    
-    public T? Value => !IsSuccess 
-        ? throw new InvalidOperationException("Cannot access Value of a failed result") 
-        : _value;
-
-    protected internal Result(bool isSuccess, T? value = default, string? message = null, Failure? failure = null)
-        : base(isSuccess, message, failure)
+    public Result(Failure failure)
     {
-        _value = value;
+        Failure = failure;
+        Success = null;
     }
-    
-    public static implicit operator Result<T>(T value)
-        => Succeed(value);
     
     public static implicit operator Result<T>(Failure failure)
-        => Fail<T>(failure);
+        => new(failure);
+
+    public static implicit operator Result<T>(Success<T> success)
+        => new(success);
 }
 
-
-public class PaginatedResult<T> : Result<IEnumerable<T>>
-{
-    public int PageNumber { get; }
-    public int PageSize { get; }
-    public int TotalCount { get; }
-    
-    protected internal PaginatedResult(
-        bool isSuccess,
-        int pageNumber = 0,
-        int pageSize = 0,
-        int totalCount = 0,
-        IEnumerable<T>? value = null,
-        string? message = null,
-        Failure? failure = null)
-        : base(isSuccess, value, message, failure)
-    {
-        PageNumber = pageNumber;
-        PageSize = pageSize;
-        TotalCount = totalCount;
-    }
-    
-    public static implicit operator PaginatedResult<T>(Failure failure)
-        => FailPaginated<T>(failure);
-}
+public sealed class Result(Success success) : Result<Unit>(success);
