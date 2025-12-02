@@ -2,8 +2,10 @@ namespace AspTemp.Shared.Application.Contracts.ResultContracts;
 
 public class Result<T>
 {
-    private bool IsSuccess => Success != null;
-    public string Message => IsSuccess ? Success!.Message : Failure!.Message;
+    public bool IsSuccess => Success != null;
+    public string Message => IsSuccess 
+        ? Success!.Message : Failure!.Message;
+    
     public Success<T>? Success { get; }
     public Failure? Failure { get; }
     public DateTime Timestamp { get; } = DateTime.UtcNow;
@@ -44,3 +46,35 @@ public class Result<T>
 }
 
 public sealed class Result(Success success) : Result<Unit>(success);
+
+public static class ResultExtensions
+{
+    public static Result<TOut> Map<TIn, TOut>(this Result<TIn> result, Func<TIn, TOut> mapper)
+        => result.IsSuccess
+            ? new Success<TOut>(
+                mapper(result.Success!.Value), 
+                result.Success.Message, 
+                result.Success.Metadata!.ToDictionary()
+            )
+            : result.Failure!;
+
+    public static async Task<Result<TOut>> MapAsync<TIn, TOut>(this Result<TIn> result, Func<TIn, Task<TOut>> mapper)
+        => result.IsSuccess
+            ? new Success<TOut>(
+                await mapper(result.Success!.Value),
+                result.Success.Message,
+                result.Success.Metadata?.ToDictionary()
+            )
+            : result.Failure!;
+
+    public static Result<TOut> Bind<TIn, TOut>(this Result<TIn> result, Func<TIn, Result<TOut>> binder)
+        => result.IsSuccess
+            ? binder(result.Success!.Value)
+            : result.Failure!;
+
+    public static async Task<Result<TOut>> BindAsync<TIn, TOut>(this Result<TIn> result,
+        Func<TIn, Task<Result<TOut>>> binder)
+        => result.IsSuccess
+            ? await binder(result.Success!.Value)
+            : result.Failure!;
+}
