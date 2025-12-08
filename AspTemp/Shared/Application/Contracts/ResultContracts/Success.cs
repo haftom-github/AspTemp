@@ -2,8 +2,8 @@ namespace AspTemp.Shared.Application.Contracts.ResultContracts;
 
 public sealed class Success(
     string? message = null, 
-    IDictionary<string, object>? metadata = null
-) : Success<Unit>(new Unit(), message, metadata)
+    IDictionary<string, object>? details = null
+) : Success<Unit>(new Unit(), message, details)
 {
     public static implicit operator Success(string message)
         => new(message);
@@ -12,11 +12,11 @@ public sealed class Success(
 public class Success<T>(
     T value,
     string? message = null,
-    IDictionary<string, object>? metadata = null)
+    IDictionary<string, object>? details = null)
 {
     public T Value { get; } = value;
     public string Message { get; } = message ?? "Operation successful";
-    public IReadOnlyDictionary<string, object>? Metadata = metadata?.AsReadOnly();
+    public readonly IDictionary<string, object>? Details = details;
 
     public static implicit operator Success<T>(T value)
         => new(value);
@@ -28,8 +28,8 @@ public class PaginatedSuccess<T>(
     int totalCount,
     IEnumerable<T> value,
     string? message = null,
-    IDictionary<string, object>? metadata = null
-) : Success<IEnumerable<T>>(value, message, metadata)
+    IDictionary<string, object>? details = null
+) : Success<IEnumerable<T>>(value, message, details)
 {
     public int PageNumber { get; } = pageNumber;
     public int PageSize { get; } = pageSize;

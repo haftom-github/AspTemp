@@ -5,52 +5,53 @@ public class Failure
     public string Message { get; }
 
     public FailureType FailureType { get; }
-    public IReadOnlyDictionary<string, object>? Metadata { get; }
+    public IDictionary<string, object?> Details { get; }
 
-    protected Failure(string message, FailureType failureType, IDictionary<string, object>? metadata = null)
+    protected Failure(string message, FailureType failureType, IDictionary<string, object?>? detail = null)
     {
         Message = message;
         FailureType = failureType;
-        Metadata = metadata?.AsReadOnly();
+        Details = detail ?? new Dictionary<string, object?>();
     }
     
-    public static ValidationFailure Validation(Dictionary<string, string> failures, string message = "one or more validation failures occurred") 
-        => new(message, failures);
-    
-    public static ValidationFailure Validation(string propertyName, string validationMessage)
-        => Validation(new Dictionary<string, string> { { propertyName, validationMessage } });
-    
-    public static Failure NotFound(string message = "resource not found")
-        => new(message, FailureType.NotFound);
+    public static Failure NotFound(string message = "resource not found", IDictionary<string, object?>? detail = null)
+        => new(message, FailureType.NotFound, detail);
     
     public static Failure Unauthorized(string message = "unauthorized access")
         => new(message, FailureType.Unauthorized);
     
-    public static Failure Conflict(string message = "conflict occured", Dictionary<string, object>? metadata = null)
-        => new(message, FailureType.Conflict, metadata);
+    public static Failure Conflict(
+        string message, 
+        string key, 
+        string value)
+        => new(message, FailureType.Conflict, new Dictionary<string, object?> { [key] = value });
+    
+    public static Failure Conflict(string key, string value)
+        => new("Conflict", FailureType.Conflict, new Dictionary<string, object?> { [key] = value });
+    
+    public static Failure Validation(string key, string value)
+        => new("Validation", FailureType.Validation, new Dictionary<string, object?> { [key] = value });
+    
+    public static Failure Validation(params (string Key, string Value)[] errors)
+    {
+        var details = errors.ToDictionary(
+            e => e.Key, object? (e) => e.Value);
+    
+        return new Failure("One or more validation errors occurred", FailureType.Validation, details);
+    }
     
     public static Failure InvalidOperation(string message = "invalid operation")
-        => new(message, FailureType.InvalidOperation);
+        => new(message, FailureType.Forbidden);
     
-    public static Failure Unexpected(string message = "unexpected error occured")
-        => new(message, FailureType.Unexpected);
+    public static Failure InvalidOperation(params (string Key, string Value)[] details)
+        => new(
+            "this operation is invalid", 
+            FailureType.Forbidden, 
+            details.ToDictionary(e => e.Key, object? (e) => e.Value)
+        );
     
-    public static Failure WithMetadata(string message, FailureType type, Dictionary<string, object> metadata)
-        => new(message, type, metadata);
-}
-
-public class ValidationFailure
-    : Failure
-{
-    public IReadOnlyDictionary<string, string> Failures;
-    protected internal ValidationFailure(
-        string message,
-        IDictionary<string, string> failures,
-        IDictionary<string, object>? metadata = null
-    ) : base(message, FailureType.Validation, metadata)
-    {
-        Failures = failures.AsReadOnly();
-    }
+    public static Failure Unexpected()
+        => new("Unexpected error occured", FailureType.Unexpected);
 }
 
 public enum FailureType
@@ -59,6 +60,6 @@ public enum FailureType
     NotFound = 2,
     Unauthorized = 3,
     Conflict = 4,
-    InvalidOperation = 5,
+    Forbidden = 5,
     Unexpected = 6
 }

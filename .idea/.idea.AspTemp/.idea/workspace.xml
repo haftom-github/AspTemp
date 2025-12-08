@@ -10,7 +10,9 @@
   <component name="ChangeListManager">
     <list default="true" id="584f68df-8a0f-40dd-93ff-446b347de752" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AspTemp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AspTemp/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Failure.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Failure.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Result.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Result.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Success.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Success.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +23,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/ApiResponse.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Success.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -98,7 +101,8 @@
       <workItem from="1761022184160" duration="10481000" />
       <workItem from="1763379906807" duration="10209000" />
       <workItem from="1764588957717" duration="10700000" />
-      <workItem from="1764654229638" duration="2859000" />
+      <workItem from="1764654229638" duration="11595000" />
+      <workItem from="1765169826339" duration="6533000" />
     </task>
     <servers />
   </component>
