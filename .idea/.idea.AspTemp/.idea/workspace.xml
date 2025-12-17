@@ -10,10 +10,12 @@
   <component name="ChangeListManager">
     <list default="true" id="584f68df-8a0f-40dd-93ff-446b347de752" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AspTemp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AspTemp/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AspTemp/AspTemp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/AspTemp.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Result.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Result.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Success.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Success.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AspTemp/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/appsettings.Development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AspTemp/Features/Appointments/Appointment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/Appointments/Appointment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AspTemp/Features/MedicalServices/Entities/Encounter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/Encounters/Encounter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AspTemp/Features/MedicalServices/Entities/MedicalService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/MedicalServices/MedicalService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AspTemp/Features/MedicalServices/Entities/MedicalServiceFee.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/MedicalServices/MedicalServiceFee.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AspTemp/Features/MedicalServices/Entities/Physician.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AspTemp/Features/Physicians/Physician.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/MedicalServices/Physician.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,11 +27,19 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/AspTemp/Features/Appointments/Appointment.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/AspTemp/Features/MedicalServices/Entities/Encounter.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/AspTemp/Features/MedicalServices/Entities/MedicalService.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/AspTemp/Features/MedicalServices/Entities/MedicalServiceFee.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/AspTemp/Features/MedicalServices/Entities/Physician.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/AspTemp/Features/Physicians/Physician.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Features/EncounterServices/EncounterServices.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Features/EncounterServices/LabTestRequest.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Features/EncounterServices/Prescription.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Features/EncounterServices/Referral.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Features/Encounters/Consultation.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Features/Encounters/Encounter.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Features/Encounters/InpatientPlacement.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Features/MedicalServices/Bed.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Features/MedicalServices/Drug.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Features/MedicalServices/LabTest.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Features/MedicalServices/MedicalService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Features/MedicalServices/MedicalServiceFee.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Features/MedicalServices/Physician.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/Cqrs/IRRequest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Success.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AspTemp/Shared/Domain/AuditableEntity.cs" root0="FORCE_HIGHLIGHTING" />
@@ -112,7 +122,8 @@
       <workItem from="1764588957717" duration="10700000" />
       <workItem from="1764654229638" duration="11595000" />
       <workItem from="1765169826339" duration="6569000" />
-      <workItem from="1765459204006" duration="2367000" />
+      <workItem from="1765459204006" duration="3915000" />
+      <workItem from="1765515867691" duration="13204000" />
     </task>
     <servers />
   </component>

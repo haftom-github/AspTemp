@@ -1,6 +1,4 @@
-using AspTemp.Features.MedicalServices.Entities;
-
-namespace AspTemp.Features.Physicians;
+namespace AspTemp.Features.MedicalServices;
 
 public class Physician: MedicalService
 {
