@@ -7,7 +7,7 @@ public class Failure
     public FailureType FailureType { get; }
     public IDictionary<string, object?> Details { get; }
 
-    protected Failure(string message, FailureType failureType, IDictionary<string, object?>? detail = null)
+    private Failure(string message, FailureType failureType, IDictionary<string, object?>? detail = null)
     {
         Message = message;
         FailureType = failureType;
@@ -30,7 +30,7 @@ public class Failure
         => new("Conflict", FailureType.Conflict, new Dictionary<string, object?> { [key] = value });
     
     public static Failure Validation(string key, string value)
-        => new("Validation", FailureType.Validation, new Dictionary<string, object?> { [key] = value });
+        => new("One or more validation errors occured", FailureType.Validation, new Dictionary<string, object?> { [key] = value });
     
     public static Failure Validation(params (string Key, string Value)[] errors)
     {

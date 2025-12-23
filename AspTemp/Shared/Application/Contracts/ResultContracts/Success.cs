@@ -8,16 +8,13 @@ public class Success<T>(
     public T Value { get; } = value;
     public string Message { get; } = message ?? "Operation successful";
     public readonly IDictionary<string, object>? Details = details;
-
-    public static implicit operator Success<T>(T value)
-        => new(value);
 }
 
 public class PaginatedSuccess<T>(
+    IEnumerable<T> value,
     int pageNumber,
     int pageSize,
     int totalCount,
-    IEnumerable<T> value,
     string? message = null,
     IDictionary<string, object>? details = null
 ) : Success<IEnumerable<T>>(value, message, details)
