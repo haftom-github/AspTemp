@@ -30,7 +30,7 @@ public class JwtService(IConfiguration config): IJwtService
             issuer: jwt["Issuer"],
             audience: jwt["Audience"],
             claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(int.Parse(jwt["TokenLife"]!)),
+            expires: DateTime.UtcNow.AddMinutes(int.Parse(jwt["AccessTokenMinutes"]!)),
             signingCredentials: credentials
         );
         

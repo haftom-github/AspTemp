@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Services.ConfigureApplication(assembly);
-builder.Services.ConfigureAuth();
+builder.Services.ConfigureAuth(builder.Configuration);
 
 var app = builder.Build();
 
@@ -24,13 +24,17 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapPost("/auth/signin", async (SignIn request, ISender sender, CancellationToken ct) =>
     {
         var result = await sender.Send(request, ct);
         return result.ToHttpResult();
     })
     .WithName("GetWeatherForecast");
+
+app.MapGet("/protected", () => "Hello World!")
+    .RequireAuthorization();
 
 app.Run();
 

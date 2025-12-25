@@ -11,8 +11,9 @@
     <list default="true" id="584f68df-8a0f-40dd-93ff-446b347de752" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AspTemp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AspTemp/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AspTemp/AspTemp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/AspTemp.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AspTemp/Features/Auth/Configurations.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/Auth/Configurations.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AspTemp/Features/Auth/Services/IJwtService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/Auth/Services/IJwtService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AspTemp/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Failure.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Failure.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AspTemp/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/appsettings.Development.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -137,7 +138,7 @@
       <workItem from="1766129883151" duration="8012000" />
       <workItem from="1766479620605" duration="15667000" />
       <workItem from="1766553423511" duration="45000" />
-      <workItem from="1766646504852" duration="11580000" />
+      <workItem from="1766646504852" duration="13331000" />
     </task>
     <servers />
   </component>

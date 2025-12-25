@@ -1,16 +1,36 @@
+using System.Text;
 using AspTemp.Features.Auth.Commands;
 using AspTemp.Features.Auth.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AspTemp.Features.Auth;
 
 public static class Configurations
 {
-    public static void ConfigureAuth(this IServiceCollection services)
+    public static void ConfigureAuth(this IServiceCollection services, IConfiguration config)
     {
+        var jwt = config.GetSection("Jwt");
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
         services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<IPasswordService, PasswordService>();
         services.AddScoped<IUserRepo, UserRepo>();
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwt["Issuer"],
+                    ValidAudience = jwt["Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt["Key"]!))
+                };
+            });
+        
+        services.AddAuthorization();
     }
 }
