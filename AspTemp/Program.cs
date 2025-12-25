@@ -26,14 +26,31 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapPost("/auth/signin", async (SignIn request, ISender sender, CancellationToken ct) =>
+app.MapPost("/api/auth/signin", async (
+        SignIn request, 
+        ISender sender, 
+        HttpContext httpContext,
+        CancellationToken ct) =>
     {
         var result = await sender.Send(request, ct);
-        return result.ToHttpResult();
+        if (!result.IsSuccess) return result.ToHttpResult();
+        
+        httpContext.Response.Cookies.Append(
+            "access_token", 
+            result.Success!.Value,
+            new CookieOptions
+            {
+                HttpOnly = true,
+                // todo: make it secure at production
+                SameSite = SameSiteMode.Strict,
+                Expires = DateTimeOffset.UtcNow.AddHours(24)
+            });
+        return Results.Ok();
     })
-    .WithName("GetWeatherForecast");
+    .WithName("auth");
 
-app.MapGet("/protected", () => "Hello World!")
+app.MapGet("/api/home", () => "Hello World!")
+    .WithName("home")
     .RequireAuthorization();
 
 app.Run();
