@@ -29,6 +29,9 @@ public class Failure
     public static Failure Conflict(string key, string value)
         => new("Conflict", FailureType.Conflict, new Dictionary<string, object?> { [key] = value });
     
+    public static Failure Validation(string message)
+        => new(message, FailureType.Validation);
+    
     public static Failure Validation(string key, string value)
         => new("One or more validation errors occured", FailureType.Validation, new Dictionary<string, object?> { [key] = value });
     
