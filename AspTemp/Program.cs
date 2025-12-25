@@ -1,3 +1,4 @@
+using AspTemp.Features.Auth;
 using AspTemp.Features.Auth.Commands;
 using AspTemp.Shared.Application;
 using AspTemp.Shared.Application.Contracts.ResultContracts.Extensions;
@@ -12,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 
 builder.Services.ConfigureApplication(assembly);
+builder.Services.ConfigureAuth();
 
 var app = builder.Build();
 
@@ -29,12 +31,6 @@ app.MapPost("/auth/signin", async (SignIn request, ISender sender, CancellationT
         return result.ToHttpResult();
     })
     .WithName("GetWeatherForecast");
-
-app.MapGet("/paginated", async ([AsParameters] GetAllUsers request, ISender sender, CancellationToken ct) =>
-{
-    var result = await sender.Send(request, ct);
-    return result.ToHttpResult();
-});
 
 app.Run();
 
