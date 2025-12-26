@@ -5,11 +5,9 @@ using AspTemp.Shared.Application.Contracts.ResultContracts;
 namespace AspTemp.Features.Auth.Commands;
 
 public record SignIn(
-    string Username,
+    string UsernameOrEmail,
     string Password
 ): IRRequest<Tokens>;
-
-public record Tokens(string AccessToken, string RefreshToken);
 
 public class SignInHandler(
     IUserRepo userRepo,
@@ -19,18 +17,15 @@ public class SignInHandler(
 {
     public async Task<Result<Tokens>> Handle(SignIn request, CancellationToken cancellationToken)
     {
-        var user = await userRepo.GetByUsernameAsync(request.Username);
-        if (user == null) 
+        var user = await userRepo.GetByUsernameAsync(request.UsernameOrEmail) 
+                   ?? await userRepo.GetByEmailAsync(request.UsernameOrEmail);
+        
+        if (user == null)
             return Failure.Validation("Invalid Username Or Password");
 
-        if (passwordService.VerifyHashedPassword(user, request.Password))
-        {
-            return new Tokens(
-                tokenService.GenerateAccessToken(user),
-                tokenService.GenerateRefreshToken(user)
-            );
-        }
+        if (passwordService.Verify(user, request.Password))
+            return tokenService.GenerateTokens(user);
         
-        return Failure.Validation("Invalid Username Or Password");
+        return Failure.Validation("Invalid Username/Email Or Password");
     }
 }

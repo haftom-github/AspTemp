@@ -10,14 +10,15 @@ namespace AspTemp.Features.Auth.Services;
 
 public interface ITokenService
 {
-    string GenerateAccessToken(User user);
-    string GenerateRefreshToken(User user);
-    Task<(string accessToken, string refreshToken)?> Refresh(string refreshToken);
+    Tokens GenerateTokens(User user);
+    Task<Tokens?> Refresh(string refreshToken);
 }
+
+public record Tokens(string AccessToken, string RefreshToken);
 
 public class TokenService(IConfiguration config, IUserRepo userRepo): ITokenService
 {
-    public string GenerateAccessToken(User user)
+    private string GenerateAccessToken(User user)
     {
         var jwt = config.GetSection("Jwt");
         var claims = new List<Claim>
@@ -41,26 +42,27 @@ public class TokenService(IConfiguration config, IUserRepo userRepo): ITokenServ
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    public string GenerateRefreshToken(User user)
+    private string GenerateRefreshToken(User user)
     {
         var refreshTokenMinutes = int.Parse(config["Jwt:RefreshTokenMinutes"]!);
         var bytes = RandomNumberGenerator.GetBytes(64);
         var refreshToken = Convert.ToBase64String(bytes);
         
-        RefreshTokenStore.Add(refreshToken, user.Username, TimeSpan.FromMinutes(refreshTokenMinutes));
+        RefreshTokenStore.Add(refreshToken, user.Id, TimeSpan.FromMinutes(refreshTokenMinutes));
         return refreshToken;
     }
 
-    public async Task<(string accessToken, string refreshToken)?> Refresh(string refreshToken)
+    public Tokens GenerateTokens(User user) => new(GenerateAccessToken(user), GenerateRefreshToken(user));
+
+    public async Task<Tokens?> Refresh(string refreshToken)
     {
-        RefreshTokenStore.TryConsume(refreshToken, out var username);
-        if (username == null)
+        RefreshTokenStore.TryConsume(refreshToken, out var userId);
+        if (userId == null)
             return null;
         
-        var user = await userRepo.GetByUsernameAsync(username);
-        if (user == null)
-            return null;
-        
-        return new ValueTuple<string, string>(GenerateAccessToken(user), GenerateRefreshToken(user));
+        var user = await userRepo.GetByIdAsync(userId.Value);
+
+        return user == null 
+            ? null : new Tokens(GenerateAccessToken(user), GenerateRefreshToken(user));
     }
 }
