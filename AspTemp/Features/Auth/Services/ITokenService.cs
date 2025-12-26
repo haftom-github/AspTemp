@@ -13,8 +13,6 @@ public interface ITokenService
     string GenerateAccessToken(User user);
     string GenerateRefreshToken(User user);
     Task<(string accessToken, string refreshToken)?> Refresh(string refreshToken);
-    CookieOptions AccessTokenCookieOptions { get; }
-    CookieOptions RefreshTokenCookieOptions { get; }
 }
 
 public class TokenService(IConfiguration config, IUserRepo userRepo): ITokenService
@@ -65,21 +63,4 @@ public class TokenService(IConfiguration config, IUserRepo userRepo): ITokenServ
         
         return new ValueTuple<string, string>(GenerateAccessToken(user), GenerateRefreshToken(user));
     }
-
-    public CookieOptions AccessTokenCookieOptions => new()
-    {
-        HttpOnly = true,
-        // todo: make it secure at production
-        SameSite = SameSiteMode.Strict,
-        Expires = DateTimeOffset.UtcNow.AddMinutes(int.Parse(config["Jwt:AccessTokenMinutes"]!))
-    };
-
-    public CookieOptions RefreshTokenCookieOptions => new()
-    {
-        HttpOnly = true,
-        // todo: make it secure at production
-        SameSite = SameSiteMode.Strict,
-        Expires = DateTimeOffset.UtcNow.AddMinutes(int.Parse(config["Jwt:RefreshTokenMinutes"]!)),
-        Path = "/api/auth/refresh"
-    };
 }

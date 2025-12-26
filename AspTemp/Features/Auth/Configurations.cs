@@ -34,7 +34,7 @@ public static class Configurations
                 {
                     OnMessageReceived = context =>
                     {
-                        context.Token = context.Request.Cookies["access_token"];
+                        context.Token = context.Request.Cookies[jwt["AccessTokenSessionKey"]!];
                         return Task.CompletedTask;
                     }
                 };

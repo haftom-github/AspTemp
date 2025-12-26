@@ -10,11 +10,9 @@
   <component name="ChangeListManager">
     <list default="true" id="584f68df-8a0f-40dd-93ff-446b347de752" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AspTemp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AspTemp/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AspTemp/Features/Auth/Commands/SignIn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/Auth/Commands/SignIn.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AspTemp/Features/Auth/Configurations.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/Auth/Configurations.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AspTemp/Features/Auth/Services/IJwtService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/Auth/Services/ITokenService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AspTemp/Features/Auth/Services/ITokenService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/Auth/Services/ITokenService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AspTemp/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Result.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Shared/Application/Contracts/ResultContracts/Result.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AspTemp/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/appsettings.Development.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,6 +35,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3762d68b262a12e791b5994fdf443d3c8fca5d94a67de27b4c94a92e4ba170/Claim.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/af17bf1ce56f358be92df41e22341c6f36c7d8a244ac5da99a4fe2921d4aea5/ISender.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/b2d015aef913cff5d5f16a2d476f19e1f336d02f373a7eb6a5439ecb2ec8bd3/AssemblyScanner.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AspTemp/Features/Auth/AuthController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AspTemp/Features/Auth/Commands/IUserRepo.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AspTemp/Features/Auth/Commands/Refresh.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/AspTemp/Features/Auth/Commands/SignIn.cs" root0="FORCE_HIGHLIGHTING" />
@@ -143,7 +142,7 @@
       <workItem from="1766479620605" duration="15667000" />
       <workItem from="1766553423511" duration="45000" />
       <workItem from="1766646504852" duration="19778000" />
-      <workItem from="1766725307237" duration="9129000" />
+      <workItem from="1766725307237" duration="11892000" />
     </task>
     <servers />
   </component>
