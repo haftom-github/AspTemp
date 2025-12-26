@@ -5,24 +5,24 @@ namespace AspTemp.Features.Auth.Services;
 public static class RefreshTokenStore
 {
     private static readonly ConcurrentDictionary<string, RefreshTokenInfo> Tokens = [];
-    private record RefreshTokenInfo(string Username, DateTime ExpiresAt);
+    private record RefreshTokenInfo(Guid UserId, DateTime ExpiresAt);
 
-    public static void Add(string token, string username, TimeSpan lifetime)
+    public static void Add(string token, Guid userId, TimeSpan lifetime)
     {
-        var info = new RefreshTokenInfo(username, DateTime.UtcNow.Add(lifetime));
+        var info = new RefreshTokenInfo(userId, DateTime.UtcNow.Add(lifetime));
         Tokens[token] = info;
     }
 
-    public static bool TryConsume(string token, out string? username)
+    public static bool TryConsume(string token, out Guid? userId)
     {
-        username = null;
+        userId = null;
         if (!Tokens.TryRemove(token, out var info))
             return false;
         
         if (info.ExpiresAt < DateTime.UtcNow)
             return false;
         
-        username = info.Username;
+        userId = info.UserId;
         return true;
     }
 

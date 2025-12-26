@@ -47,20 +47,20 @@ public class TokenService(IConfiguration config, IUserRepo userRepo): ITokenServ
         var bytes = RandomNumberGenerator.GetBytes(64);
         var refreshToken = Convert.ToBase64String(bytes);
         
-        RefreshTokenStore.Add(refreshToken, user.Username, TimeSpan.FromMinutes(refreshTokenMinutes));
+        RefreshTokenStore.Add(refreshToken, user.Id, TimeSpan.FromMinutes(refreshTokenMinutes));
         return refreshToken;
     }
 
     public async Task<(string accessToken, string refreshToken)?> Refresh(string refreshToken)
     {
-        RefreshTokenStore.TryConsume(refreshToken, out var username);
-        if (username == null)
+        RefreshTokenStore.TryConsume(refreshToken, out var userId);
+        if (userId == null)
             return null;
         
-        var user = await userRepo.GetByUsernameAsync(username);
+        var user = await userRepo.GetByIdAsync(userId.Value);
         if (user == null)
             return null;
         
-        return new ValueTuple<string, string>(GenerateAccessToken(user), GenerateRefreshToken(user));
+        return (GenerateAccessToken(user), GenerateRefreshToken(user));
     }
 }

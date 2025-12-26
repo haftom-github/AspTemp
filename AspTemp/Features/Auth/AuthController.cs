@@ -51,6 +51,27 @@ public class AuthController(ISender sender, IConfiguration config): ControllerBa
         return Result.Ok().ToHttpResult();
     }
 
+    [HttpPost("signin/google")]
+    public async Task<IResult> SignInWithGoogle(SignInWithGoogle request, CancellationToken ct)
+    {
+        var result = await sender.Send(request, ct);
+        if (!result.IsSuccess) return result.ToHttpResult();
+        
+        Response.Cookies.Append(
+            _accessTokenSessionKey,
+            result.Success!.Value.AccessToken,
+            _accessTokenCookieOptions
+        );
+
+        Response.Cookies.Append( 
+            _refreshTokenSessionKey,
+            result.Success!.Value.RefreshToken,
+            _refreshTokenCookieOptions
+        );
+        
+        return Result.Ok().ToHttpResult();
+    }
+
     [HttpGet("refresh")]
     public async Task<IResult> Refresh(CancellationToken ct)
     {
