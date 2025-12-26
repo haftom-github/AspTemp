@@ -13,7 +13,7 @@ public static class Configurations
     {
         var jwt = config.GetSection("Jwt");
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-        services.AddScoped<IJwtService, JwtService>();
+        services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IPasswordService, PasswordService>();
         services.AddScoped<IUserRepo, UserRepo>();
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

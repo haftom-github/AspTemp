@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+using AspTemp.Shared.Domain;
 
 namespace AspTemp.Shared.Application.Contracts.ResultContracts;
 
@@ -30,4 +30,13 @@ public class Result<T>
 
     public static implicit operator Result<T>(T value)
         => new(new Success<T>(value));
+}
+
+public static class Result
+{
+    public static Result<Unit> Ok()
+        => new(new Success<Unit>(new Unit()));
+    
+    public static Result<Unit> Failure(Failure failure)
+        => new(failure);
 }
