@@ -1,5 +1,6 @@
 using System.Text;
 using AspTemp.Features.Auth.Commands;
+using AspTemp.Features.Auth.Domain;
 using AspTemp.Features.Auth.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;

@@ -1,3 +1,4 @@
+using AspTemp.Features.Auth.Domain;
 using Microsoft.AspNetCore.Identity;
 
 namespace AspTemp.Features.Auth.Services;

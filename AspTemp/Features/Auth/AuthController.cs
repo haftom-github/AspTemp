@@ -13,6 +13,12 @@ public class AuthController(ISender sender, IConfiguration config): ControllerBa
 {
     private readonly string _refreshTokenSessionKey = config["Jwt:RefreshTokenSessionKey"]!;
     private readonly string _accessTokenSessionKey = config["Jwt:AccessTokenSessionKey"]!;
+
+    public async Task<IResult> SignUpAsync(SignUp request, CancellationToken ct)
+    {
+        var result = await sender.Send(request.Clean, ct);
+        return result.ToHttpResult();
+    }
     
     [HttpPost("signin")]
     public async Task<IResult> SignInAsync(SignIn request, CancellationToken ct)
