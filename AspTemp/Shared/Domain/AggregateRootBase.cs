@@ -1,6 +1,6 @@
 namespace AspTemp.Shared.Domain;
 
-public abstract class AggregateRootBase<TId, TAId>
+public abstract class AggregateRootBase<TId>
 {
     public TId Id { get; protected set; } = default!;
     
@@ -16,10 +16,10 @@ public abstract class AggregateRootBase<TId, TAId>
     public RecordStatus RecordStatus { get; protected set; } = RecordStatus.Active;
     
     public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
-    public TAId CreatedBy { get; set; } = default!;
+    public Guid CreatedBy { get; set; }
     
     public DateTime? UpdatedDate { get; set; }
-    public TAId? UpdatedBy { get; set; }
+    public Guid? UpdatedBy { get; set; }
 }
 
 public enum RecordStatus

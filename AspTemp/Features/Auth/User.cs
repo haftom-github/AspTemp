@@ -2,7 +2,7 @@ using AspTemp.Shared.Domain;
 
 namespace AspTemp.Features.Auth;
 
-public class User: AggregateRootBase<Guid, Guid>
+public class User: AggregateRootBase<Guid>
 {
     public string? Email { get; set; }
     public string? Username { get; set; }

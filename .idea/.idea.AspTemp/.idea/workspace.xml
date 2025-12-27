@@ -10,13 +10,8 @@
   <component name="ChangeListManager">
     <list default="true" id="584f68df-8a0f-40dd-93ff-446b347de752" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AspTemp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AspTemp/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AspTemp/Features/Auth/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/Auth/AuthController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AspTemp/Features/Auth/Commands/IUserRepo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/Auth/Commands/IUserRepo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AspTemp/Features/Auth/Commands/Refresh.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/Auth/Commands/Refresh.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AspTemp/Features/Auth/Commands/SignIn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/Auth/Commands/SignIn.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AspTemp/Features/Auth/Commands/SignInWithGoogle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/Auth/Commands/SignInWithGoogle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AspTemp/Features/Auth/Services/IPasswordService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/Auth/Services/IPasswordService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AspTemp/Features/Auth/Services/ITokenService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/Auth/Services/ITokenService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AspTemp/Features/Auth/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Features/Auth/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AspTemp/Shared/Domain/AggregateRootBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/AspTemp/Shared/Domain/AggregateRootBase.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +142,7 @@
       <workItem from="1766553423511" duration="45000" />
       <workItem from="1766646504852" duration="19778000" />
       <workItem from="1766725307237" duration="25322000" />
-      <workItem from="1766828415799" duration="2777000" />
+      <workItem from="1766828415799" duration="2949000" />
     </task>
     <servers />
   </component>
