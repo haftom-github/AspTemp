@@ -9,8 +9,6 @@ public record SignIn(
     string Password
 ): IRRequest<Tokens>;
 
-public record Tokens(string AccessToken, string RefreshToken);
-
 public class SignInHandler(
     IUserRepo userRepo,
     ITokenService tokenService, 
@@ -25,11 +23,8 @@ public class SignInHandler(
         if (user == null)
             return Failure.Validation("Invalid Username Or Password");
 
-        if (passwordService.VerifyHashedPassword(user, request.Password))
-            return new Tokens(
-                tokenService.GenerateAccessToken(user),
-                tokenService.GenerateRefreshToken(user)
-            );
+        if (passwordService.Verify(user, request.Password))
+            return tokenService.GenerateTokens(user);
         
         return Failure.Validation("Invalid Username/Email Or Password");
     }

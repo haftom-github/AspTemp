@@ -22,9 +22,6 @@ public class SignInWithGoogleHandler(IUserRepo userRepo, ITokenService tokenServ
         if (user == null)
             return Failure.Validation("User with google identifier not found.");
         
-        return new Tokens(
-            tokenService.GenerateAccessToken(user),
-            tokenService.GenerateRefreshToken(user)
-        );
+        return tokenService.GenerateTokens(user);
     }
 }

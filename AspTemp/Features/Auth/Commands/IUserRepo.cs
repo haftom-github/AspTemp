@@ -15,7 +15,7 @@ public class UserRepo(IPasswordService passwordService): IUserRepo
         new()
         {
             Email = "ftomtse@gmail.com",
-            Password = passwordService.HashPassword("pass"),
+            Password = passwordService.Hash("pass"),
             Username = "john"
         }
     ];
