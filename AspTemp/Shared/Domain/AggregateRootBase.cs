@@ -2,7 +2,7 @@ namespace AspTemp.Shared.Domain;
 
 public abstract class AggregateRootBase<TId>
 {
-    public TId Id { get; protected set; } = default!;
+    public TId Id { get; init; } = default!;
     
     private readonly List<IDomainEvent> _domainEvents = [];
     public IEnumerable<IDomainEvent> DomainEvents => _domainEvents;
@@ -16,7 +16,7 @@ public abstract class AggregateRootBase<TId>
     public RecordStatus RecordStatus { get; protected set; } = RecordStatus.Active;
     
     public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
-    public Guid CreatedBy { get; set; }
+    public Guid? CreatedBy { get; set; }
     
     public DateTime? UpdatedDate { get; set; }
     public Guid? UpdatedBy { get; set; }
@@ -24,7 +24,7 @@ public abstract class AggregateRootBase<TId>
 
 public enum RecordStatus
 {
-    Inactive = 1,
-    Active = 2,
+    Active = 1,
+    InActive = 2,
     Deleted = 3
 }

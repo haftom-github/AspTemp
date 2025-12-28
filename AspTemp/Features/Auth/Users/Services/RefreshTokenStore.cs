@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 
-namespace AspTemp.Features.Auth.Services;
+namespace AspTemp.Features.Auth.Users.Services;
 
 public static class RefreshTokenStore
 {

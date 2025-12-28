@@ -1,6 +1,6 @@
 using AspTemp.Shared.Domain;
 
-namespace AspTemp.Features.Auth.Domain;
+namespace AspTemp.Features.Auth.Users.Domain;
 
 public class Permission: AggregateRootBase<Guid>
 {

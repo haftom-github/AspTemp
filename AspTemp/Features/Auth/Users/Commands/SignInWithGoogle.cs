@@ -1,9 +1,9 @@
-using AspTemp.Features.Auth.Services;
+using AspTemp.Features.Auth.Users.Services;
 using AspTemp.Shared.Application.Contracts.Cqrs;
 using AspTemp.Shared.Application.Contracts.ResultContracts;
 using Google.Apis.Auth;
 
-namespace AspTemp.Features.Auth.Commands;
+namespace AspTemp.Features.Auth.Users.Commands;
 
 public record SignInWithGoogle(string IdToken): IRRequest<Tokens>;
 
@@ -18,7 +18,7 @@ public class SignInWithGoogleHandler(IUserRepo userRepo, ITokenService tokenServ
         };
 
         var payload = await GoogleJsonWebSignature.ValidateAsync(request.IdToken, settings);
-        var user = await userRepo.GetByEmailAsync(payload.Email);
+        var user = await userRepo.GetByEmailAsync(payload.Email, cancellationToken);
         if (user == null)
             return Failure.Validation("User with google identifier not found.");
         

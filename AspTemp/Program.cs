@@ -1,5 +1,6 @@
 using AspTemp.Features.Auth;
 using AspTemp.Shared.Application;
+using AspTemp.Shared.Infrastructure;
 
 var assembly = typeof(Program).Assembly;
 
@@ -11,6 +12,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
 builder.Services.ConfigureApplication(assembly);
+builder.Services.ConfigureInfrastructure();
 builder.Services.ConfigureAuth(builder.Configuration);
 
 var app = builder.Build();

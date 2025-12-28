@@ -1,8 +1,8 @@
-using AspTemp.Features.Auth.Services;
+using AspTemp.Features.Auth.Users.Services;
 using AspTemp.Shared.Application.Contracts.Cqrs;
 using AspTemp.Shared.Application.Contracts.ResultContracts;
 
-namespace AspTemp.Features.Auth.Commands;
+namespace AspTemp.Features.Auth.Users.Commands;
 
 public record SignIn(
     string UsernameOrEmail,
@@ -17,13 +17,14 @@ public class SignInHandler(
 {
     public async Task<Result<Tokens>> Handle(SignIn request, CancellationToken cancellationToken)
     {
-        var user = await userRepo.GetByUsernameAsync(request.UsernameOrEmail) 
-                   ?? await userRepo.GetByEmailAsync(request.UsernameOrEmail);
+        var user = await userRepo.GetByUsernameAsync(request.UsernameOrEmail, cancellationToken) 
+                   ?? await userRepo.GetByEmailAsync(request.UsernameOrEmail, cancellationToken);
         
         if (user == null)
             return Failure.Validation("Invalid Username Or Password");
 
-        if (passwordService.Verify(user, request.Password))
+        var userPassword = user.LocalAuthIdentity!.Password!;
+        if (passwordService.Verify(user, userPassword, request.Password))
             return tokenService.GenerateTokens(user);
         
         return Failure.Validation("Invalid Username/Email Or Password");

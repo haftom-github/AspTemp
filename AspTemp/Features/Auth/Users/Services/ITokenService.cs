@@ -2,17 +2,17 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using AspTemp.Features.Auth.Commands;
-using AspTemp.Features.Auth.Domain;
+using AspTemp.Features.Auth.Users.Commands;
+using AspTemp.Features.Auth.Users.Domain;
 using Microsoft.IdentityModel.Tokens;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
-namespace AspTemp.Features.Auth.Services;
+namespace AspTemp.Features.Auth.Users.Services;
 
 public interface ITokenService
 {
     Tokens GenerateTokens(User user);
-    Task<Tokens?> Refresh(string refreshToken);
+    Task<Tokens?> Refresh(string refreshToken, CancellationToken ct);
 }
 
 public record Tokens(string AccessToken, string RefreshToken);
@@ -55,13 +55,13 @@ public class TokenService(IConfiguration config, IUserRepo userRepo): ITokenServ
 
     public Tokens GenerateTokens(User user) => new(GenerateAccessToken(user), GenerateRefreshToken(user));
 
-    public async Task<Tokens?> Refresh(string refreshToken)
+    public async Task<Tokens?> Refresh(string refreshToken, CancellationToken ct)
     {
         RefreshTokenStore.TryConsume(refreshToken, out var userId);
         if (userId == null)
             return null;
         
-        var user = await userRepo.GetByIdAsync(userId.Value);
+        var user = await userRepo.GetByIdAsync(userId.Value, ct);
 
         return user == null 
             ? null : new Tokens(GenerateAccessToken(user), GenerateRefreshToken(user));

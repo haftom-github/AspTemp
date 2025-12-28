@@ -1,5 +1,5 @@
-using AspTemp.Features.Auth.Commands;
-using AspTemp.Features.Auth.Services;
+using AspTemp.Features.Auth.Users.Commands;
+using AspTemp.Features.Auth.Users.Services;
 using AspTemp.Shared.Application.Contracts.ResultContracts;
 using AspTemp.Shared.Application.Contracts.ResultContracts.Extensions;
 using MediatR;

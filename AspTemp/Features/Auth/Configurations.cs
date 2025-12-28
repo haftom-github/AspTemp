@@ -1,7 +1,8 @@
 using System.Text;
-using AspTemp.Features.Auth.Commands;
-using AspTemp.Features.Auth.Domain;
-using AspTemp.Features.Auth.Services;
+using AspTemp.Features.Auth.AuthProviders.Domain;
+using AspTemp.Features.Auth.Users.Commands;
+using AspTemp.Features.Auth.Users.Domain;
+using AspTemp.Features.Auth.Users.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -17,6 +18,7 @@ public static class Configurations
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IPasswordService, PasswordService>();
         services.AddScoped<IUserRepo, UserRepo>();
+        services.AddScoped<IAuthProviderRepo, AuthProviderRepo>();
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
