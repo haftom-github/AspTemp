@@ -24,11 +24,13 @@ public class ValidationBehaviour<TRequest, TResponse>
         );
 
         var failures = validationResult
-            .Where(vr => vr.Errors.Count != 0)
-            .SelectMany(v => v.Errors)
+            .SelectMany(vr => vr.Errors)
             .Where(e => e is not null)
-            .Select(e => (e.PropertyName, e.ErrorMessage))
-            .ToArray();
+            .GroupBy(e => e.PropertyName)
+            .Select(g => (
+                g.Key,
+                g.Select(e => e.ErrorMessage).ToArray()
+            )).ToArray();
 
         if (failures.Length == 0) return await next(cancellationToken);
         

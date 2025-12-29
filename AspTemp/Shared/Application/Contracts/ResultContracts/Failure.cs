@@ -38,7 +38,7 @@ public class Failure
     public static Failure Validation(string key, string value)
         => new("One or more validation errors occured", FailureType.Validation, new Dictionary<string, object?> { [key] = value });
     
-    public static Failure Validation(params (string Key, string Value)[] errors)
+    public static Failure Validation(params (string Key, string[] Value)[] errors)
     {
         var details = errors.ToDictionary(
             e => e.Key, object? (e) => e.Value);
