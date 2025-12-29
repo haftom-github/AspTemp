@@ -1,6 +1,5 @@
 using System.Reflection;
-using AspTemp.Features.Auth.AuthProviders.Domain;
-using AspTemp.Features.Auth.Users.Domain;
+using AspTemp.Features.Auth.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace AspTemp.Shared.Infrastructure;

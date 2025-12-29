@@ -1,6 +1,6 @@
 using AspTemp.Shared.Domain;
 
-namespace AspTemp.Features.Auth.AuthProviders.Domain;
+namespace AspTemp.Features.Auth.Domain;
 
 public class AuthProvider : AggregateRootBase<Guid>
 {

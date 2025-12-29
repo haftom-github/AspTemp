@@ -1,12 +1,11 @@
-using AspTemp.Features.Auth.AuthProviders.Domain;
-using AspTemp.Features.Auth.Users.Domain;
+using AspTemp.Features.Auth.Domain;
 using AspTemp.Shared.Application;
 using AspTemp.Shared.Application.Contracts.Cqrs;
 using AspTemp.Shared.Application.Contracts.ResultContracts;
 using AspTemp.Shared.Domain;
 using Google.Apis.Auth;
 
-namespace AspTemp.Features.Auth.Users.Commands;
+namespace AspTemp.Features.Auth.Commands;
 
 public record SignUpWithGoogle(
     string IdToken

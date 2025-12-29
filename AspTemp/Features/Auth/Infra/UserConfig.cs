@@ -1,8 +1,8 @@
-using AspTemp.Features.Auth.Users.Domain;
+using AspTemp.Features.Auth.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AspTemp.Features.Auth.Users.Infra;
+namespace AspTemp.Features.Auth.Infra;
 
 public class UserConfig: IEntityTypeConfiguration<User>
 {

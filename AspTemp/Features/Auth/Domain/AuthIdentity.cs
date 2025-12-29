@@ -1,6 +1,4 @@
-using AspTemp.Features.Auth.AuthProviders.Domain;
-
-namespace AspTemp.Features.Auth.Users.Domain;
+namespace AspTemp.Features.Auth.Domain;
 
 public class AuthIdentity
 {

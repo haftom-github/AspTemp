@@ -1,8 +1,8 @@
-using AspTemp.Features.Auth.AuthProviders.Domain;
+using AspTemp.Features.Auth.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AspTemp.Features.Auth.AuthProviders.Infra;
+namespace AspTemp.Features.Auth.Infra;
 
 public class AuthProviderConfig: IEntityTypeConfiguration<AuthProvider>
 {

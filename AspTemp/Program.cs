@@ -1,7 +1,6 @@
 using AspTemp.Features.Auth;
-using AspTemp.Features.Auth.AuthProviders.Domain;
-using AspTemp.Features.Auth.Users.Domain;
-using AspTemp.Features.Auth.Users.Services;
+using AspTemp.Features.Auth.Domain;
+using AspTemp.Features.Auth.Services;
 using AspTemp.Shared.Application;
 using AspTemp.Shared.Infrastructure;
 using Microsoft.EntityFrameworkCore;

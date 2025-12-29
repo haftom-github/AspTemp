@@ -1,7 +1,8 @@
+using AspTemp.Features.Auth.Domain;
 using AspTemp.Shared.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace AspTemp.Features.Auth.AuthProviders.Domain;
+namespace AspTemp.Features.Auth.Commands;
 
 public interface IAuthProviderRepo
 {
