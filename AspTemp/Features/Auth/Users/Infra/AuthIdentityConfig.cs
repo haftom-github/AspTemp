@@ -2,7 +2,7 @@ using AspTemp.Features.Auth.Users.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AspTemp.Features.Auth.Users.Infra.EntiryConfigurations;
+namespace AspTemp.Features.Auth.Users.Infra;
 
 public class AuthIdentityConfig: IEntityTypeConfiguration<AuthIdentity>
 {

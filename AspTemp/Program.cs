@@ -1,6 +1,10 @@
 using AspTemp.Features.Auth;
+using AspTemp.Features.Auth.AuthProviders.Domain;
+using AspTemp.Features.Auth.Users.Domain;
+using AspTemp.Features.Auth.Users.Services;
 using AspTemp.Shared.Application;
 using AspTemp.Shared.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 var assembly = typeof(Program).Assembly;
 
@@ -29,5 +33,38 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var passwordService = scope.ServiceProvider.GetRequiredService<IPasswordService>();
 
+    // Optional but recommended
+    db.Database.Migrate();
+
+    if (!db.Users.Any())
+    {
+        var localAuth = new AuthProvider
+        {
+            Id = Guid.NewGuid(),
+            Name = "local",
+            ClientId = null
+        };
+        
+        db.AuthProviders.Add(localAuth);
+        var admin = new User
+        {
+            Id = Guid.NewGuid(),
+            Email = "ftomtse@gmail.com"
+        };
+
+        admin.AddAuthIdentity(
+            localAuth.Id,
+            "admin",
+            passwordService.Hash("admin"));
+
+        db.Users.Add(admin);
+        db.SaveChanges();
+    }
+}
+
+app.Run();

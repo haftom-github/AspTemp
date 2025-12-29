@@ -2,7 +2,7 @@ using AspTemp.Features.Auth.AuthProviders.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AspTemp.Features.Auth.AuthProviders.Infra.EntityConfigurations;
+namespace AspTemp.Features.Auth.AuthProviders.Infra;
 
 public class AuthProviderConfig: IEntityTypeConfiguration<AuthProvider>
 {
@@ -18,14 +18,5 @@ public class AuthProviderConfig: IEntityTypeConfiguration<AuthProvider>
 
         builder.Property(x => x.ClientId)
             .HasMaxLength(100);
-
-        var now = new DateTime(2025, 12, 25);
-        builder.HasData(new AuthProvider
-        {
-            Id = AuthProvider.LocalAuthProviderId,
-            Name = "local",
-            ClientId = null,
-            CreatedDate = now
-        });
     }
 }

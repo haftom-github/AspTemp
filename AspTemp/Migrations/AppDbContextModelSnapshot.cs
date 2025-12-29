@@ -49,15 +49,6 @@ namespace AspTemp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("authProviders", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("00000000-0000-0000-0001-000000000001"),
-                            CreatedDate = new DateTime(2025, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "local",
-                            RecordStatus = 1
-                        });
                 });
 
             modelBuilder.Entity("AspTemp.Features.Auth.Users.Domain.AuthIdentity", b =>
@@ -87,7 +78,6 @@ namespace AspTemp.Migrations
             modelBuilder.Entity("AspTemp.Features.Auth.Users.Domain.User", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("CreatedBy")
@@ -110,7 +100,7 @@ namespace AspTemp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("users", (string)null);
                 });
 
             modelBuilder.Entity("AspTemp.Features.Auth.Users.Domain.AuthIdentity", b =>

@@ -12,7 +12,7 @@ namespace AspTemp.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AuthProvider",
+                name: "authProviders",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
@@ -26,11 +26,28 @@ namespace AspTemp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AuthProvider", x => x.Id);
+                    table.PrimaryKey("PK_authProviders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AuthIdentity",
+                name: "users",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: true),
+                    RecordStatus = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "TEXT", nullable: true),
+                    UpdatedDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    UpdatedBy = table.Column<Guid>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "authIdentities",
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "TEXT", nullable: false),
@@ -40,23 +57,24 @@ namespace AspTemp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AuthIdentity", x => new { x.UserId, x.AuthProviderId });
+                    table.PrimaryKey("PK_authIdentities", x => new { x.UserId, x.AuthProviderId });
                     table.ForeignKey(
-                        name: "FK_AuthIdentity_AuthProvider_AuthProviderId",
+                        name: "FK_authIdentities_authProviders_AuthProviderId",
                         column: x => x.AuthProviderId,
-                        principalTable: "AuthProvider",
+                        principalTable: "authProviders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_authIdentities_users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "AuthProvider",
-                columns: new[] { "Id", "ClientId", "CreatedBy", "CreatedDate", "Name", "RecordStatus", "UpdatedBy", "UpdatedDate" },
-                values: new object[] { new Guid("00000000-0000-0000-0001-000000000001"), null, null, new DateTime(2025, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "local", 1, null, null });
-
             migrationBuilder.CreateIndex(
-                name: "IX_AuthIdentity_AuthProviderId",
-                table: "AuthIdentity",
+                name: "IX_authIdentities_AuthProviderId",
+                table: "authIdentities",
                 column: "AuthProviderId");
         }
 
@@ -64,10 +82,13 @@ namespace AspTemp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AuthIdentity");
+                name: "authIdentities");
 
             migrationBuilder.DropTable(
-                name: "AuthProvider");
+                name: "authProviders");
+
+            migrationBuilder.DropTable(
+                name: "users");
         }
     }
 }

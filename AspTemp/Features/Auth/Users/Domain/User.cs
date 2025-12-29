@@ -1,4 +1,3 @@
-using AspTemp.Features.Auth.AuthProviders.Domain;
 using AspTemp.Shared.Domain;
 
 namespace AspTemp.Features.Auth.Users.Domain;
@@ -12,7 +11,7 @@ public class User: AggregateRootBase<Guid>
         => _authIdentities;
     
     public AuthIdentity? LocalAuthIdentity 
-        => _authIdentities.FirstOrDefault(ai => ai.AuthProviderId == AuthProvider.LocalAuthProviderId);
+        => _authIdentities.FirstOrDefault(ai => ai.AuthProvider?.Name == "local");
     
     // private readonly List<Role> _roles = [];
     // public IEnumerable<Role> Roles 
