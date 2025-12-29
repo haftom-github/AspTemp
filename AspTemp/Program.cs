@@ -37,20 +37,42 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     var passwordService = scope.ServiceProvider.GetRequiredService<IPasswordService>();
+    var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
 
-    // Optional but recommended
     db.Database.Migrate();
-
-    if (!db.Users.Any())
+    
+    var oauthSection = config.GetSection("OAuth");
+    foreach (var providerSection in oauthSection.GetChildren())
     {
-        var localAuth = new AuthProvider
+        var providerName = providerSection.Key.ToLower();
+        var clientId = providerSection["ClientId"];
+
+        if (!db.AuthProviders.Any(a => a.Name == providerName))
+        {
+            db.AuthProviders.Add(new AuthProvider
+            {
+                Id = Guid.NewGuid(),
+                Name = providerName,
+                ClientId = clientId
+            });
+        }
+    }
+    
+    if (!db.AuthProviders.Any(a => a.Name == "local"))
+    {
+        db.AuthProviders.Add(new AuthProvider
         {
             Id = Guid.NewGuid(),
             Name = "local",
             ClientId = null
-        };
-        
-        db.AuthProviders.Add(localAuth);
+        });
+    }
+    
+    db.SaveChanges();
+    
+    if (!db.Users.Any())
+    {
+        var localAuth = db.AuthProviders.Single(a => a.Name == "local");
         var admin = new User
         {
             Id = Guid.NewGuid(),

@@ -38,7 +38,7 @@ public class User: AggregateRootBase<Guid>
     //     _roles.RemoveAll(r => rolesToUnAssign.Any(rtu => rtu.Id == r.Id));
     // }
 
-    public void AddAuthIdentity(Guid authProviderId, string providerUserId, string? password)
+    public void AddAuthIdentity(Guid authProviderId, string providerUserId, string? password = null)
     {
         _authIdentities.Add(new AuthIdentity
         {

@@ -8,6 +8,7 @@ public static class Configurations
 {
     public static void ConfigureApplication(this IServiceCollection services, Assembly assembly)
     {
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddValidatorsFromAssembly(assembly, lifetime: ServiceLifetime.Scoped);
         services.AddMediatR(config =>
         {

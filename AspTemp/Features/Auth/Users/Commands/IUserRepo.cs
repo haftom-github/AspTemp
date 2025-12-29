@@ -12,6 +12,8 @@ public interface IUserRepo
     Task<User?> GetByUsernameAsync(string username, CancellationToken ct);
     Task<User?> GetByEmailAsync(string email, CancellationToken ct);
     Task<User?> GetByIdAsync(Guid id, CancellationToken ct);
+    Task<User?> GetByAuthProviderAsync(Guid providerId, string providerUserId, CancellationToken ct);
+    Task<bool> AuthIdentityExistsAsync(Guid providerId, string providerUserId, CancellationToken ct);
 }
 
 public class UserRepo(AppDbContext dbContext)
@@ -51,5 +53,20 @@ public class UserRepo(AppDbContext dbContext)
     {
         return dbContext.Users.Include(u => u.AuthIdentities)
             .FirstOrDefaultAsync(u => u.Id == id, cancellationToken: ct);
+    }
+
+    public Task<User?> GetByAuthProviderAsync(Guid providerId, string providerUserId, CancellationToken ct)
+    {
+        return dbContext.Users
+            .Include(u => u.AuthIdentities)
+            .ThenInclude(ai => ai.AuthProvider)
+            .FirstOrDefaultAsync(u => u.AuthIdentities.Any(ai => ai.AuthProviderId == providerId && ai.ProviderUserId == providerUserId), ct);
+    }
+
+    public Task<bool> AuthIdentityExistsAsync(Guid providerId, string providerUserId, CancellationToken ct)
+    {
+        return dbContext.Users
+            .AnyAsync(u => u.AuthIdentities
+                .Any(ai => ai.AuthProviderId == providerId && ai.ProviderUserId == providerUserId), ct);
     }
 }

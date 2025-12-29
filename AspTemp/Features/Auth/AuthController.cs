@@ -14,9 +14,17 @@ public class AuthController(ISender sender, IConfiguration config): ControllerBa
     private readonly string _refreshTokenSessionKey = config["Jwt:RefreshTokenSessionKey"]!;
     private readonly string _accessTokenSessionKey = config["Jwt:AccessTokenSessionKey"]!;
 
+    [HttpPost("signup")]
     public async Task<IResult> SignUpAsync(SignUp request, CancellationToken ct)
     {
         var result = await sender.Send(request.Clean, ct);
+        return result.ToHttpResult();
+    }
+
+    [HttpPost("signup/google")]
+    public async Task<IResult> SignUpWithGoogle(SignUpWithGoogle request, CancellationToken ct)
+    {
+        var result = await sender.Send(request, ct);
         return result.ToHttpResult();
     }
     

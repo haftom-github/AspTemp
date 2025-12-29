@@ -20,6 +20,9 @@ public class Failure
     public static Failure Unauthorized(string message = "unauthorized access")
         => new(message, FailureType.Unauthorized);
     
+    public static Failure Conflict(string message)
+        => new(message, FailureType.Conflict);
+    
     public static Failure Conflict(
         string message, 
         string key, 
