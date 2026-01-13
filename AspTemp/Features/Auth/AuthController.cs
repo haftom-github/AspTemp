@@ -65,6 +65,13 @@ public class AuthController(ISender sender, IConfiguration config): ControllerBa
         
         return Result.Ok().ToHttpResult();
     }
+    
+    [HttpGet("me")]
+    public async Task<IResult> Me(CancellationToken ct)
+    {
+        var result = await sender.Send(new Me(), ct);
+        return result.ToHttpResult();
+    }
 
     private void AttachTokensToCookie(HttpResponse response, Tokens tokens)
     {

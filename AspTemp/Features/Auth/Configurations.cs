@@ -43,5 +43,6 @@ public static class Configurations
             });
         
         services.AddAuthorization();
+        services.AddScoped<ICurrentUserService, CurrentUserService>();
     }
 }
