@@ -17,7 +17,31 @@ namespace AspTemp.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.1");
 
-            modelBuilder.Entity("AspTemp.Features.Auth.AuthProviders.Domain.AuthProvider", b =>
+            modelBuilder.Entity("AspTemp.Features.Auth.Domain.AuthIdentity", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("AuthProviderId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Password")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProviderUserId")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId", "AuthProviderId");
+
+                    b.HasIndex("AuthProviderId");
+
+                    b.ToTable("authIdentities", (string)null);
+                });
+
+            modelBuilder.Entity("AspTemp.Features.Auth.Domain.AuthProvider", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("TEXT");
@@ -51,31 +75,7 @@ namespace AspTemp.Migrations
                     b.ToTable("authProviders", (string)null);
                 });
 
-            modelBuilder.Entity("AspTemp.Features.Auth.Users.Domain.AuthIdentity", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("AuthProviderId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Password")
-                        .HasMaxLength(256)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ProviderUserId")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("UserId", "AuthProviderId");
-
-                    b.HasIndex("AuthProviderId");
-
-                    b.ToTable("authIdentities", (string)null);
-                });
-
-            modelBuilder.Entity("AspTemp.Features.Auth.Users.Domain.User", b =>
+            modelBuilder.Entity("AspTemp.Features.Auth.Domain.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("TEXT");
@@ -87,6 +87,7 @@ namespace AspTemp.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("RecordStatus")
@@ -103,15 +104,15 @@ namespace AspTemp.Migrations
                     b.ToTable("users", (string)null);
                 });
 
-            modelBuilder.Entity("AspTemp.Features.Auth.Users.Domain.AuthIdentity", b =>
+            modelBuilder.Entity("AspTemp.Features.Auth.Domain.AuthIdentity", b =>
                 {
-                    b.HasOne("AspTemp.Features.Auth.AuthProviders.Domain.AuthProvider", "AuthProvider")
+                    b.HasOne("AspTemp.Features.Auth.Domain.AuthProvider", "AuthProvider")
                         .WithMany()
                         .HasForeignKey("AuthProviderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AspTemp.Features.Auth.Users.Domain.User", null)
+                    b.HasOne("AspTemp.Features.Auth.Domain.User", null)
                         .WithMany("AuthIdentities")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -120,7 +121,7 @@ namespace AspTemp.Migrations
                     b.Navigation("AuthProvider");
                 });
 
-            modelBuilder.Entity("AspTemp.Features.Auth.Users.Domain.User", b =>
+            modelBuilder.Entity("AspTemp.Features.Auth.Domain.User", b =>
                 {
                     b.Navigation("AuthIdentities");
                 });

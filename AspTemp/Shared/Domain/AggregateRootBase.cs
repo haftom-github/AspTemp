@@ -1,6 +1,6 @@
 namespace AspTemp.Shared.Domain;
 
-public abstract class AggregateRootBase<TId>
+public abstract class AggregateRootBase<TId> : IAuditable
 {
     public TId Id { get; init; } = default!;
     
@@ -13,7 +13,7 @@ public abstract class AggregateRootBase<TId>
     public void ClearDomainEvents()
         => _domainEvents.Clear();
     
-    public RecordStatus RecordStatus { get; protected set; } = RecordStatus.Active;
+    public RecordStatus RecordStatus { get; set; } = RecordStatus.Active;
     
     public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
     public Guid? CreatedBy { get; set; }
