@@ -1,7 +1,7 @@
 using AspTemp.Features.Auth.Commands;
 using AspTemp.Features.Auth.Services;
-using AspTemp.Shared.Application.Contracts.ResultContracts;
-using AspTemp.Shared.Application.Contracts.ResultContracts.Extensions;
+using AspTemp.Shared.ResultContracts;
+using AspTemp.Shared.ResultContracts.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

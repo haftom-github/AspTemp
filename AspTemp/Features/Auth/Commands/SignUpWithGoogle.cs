@@ -1,8 +1,8 @@
 using AspTemp.Features.Auth.Domain;
-using AspTemp.Shared.Application;
-using AspTemp.Shared.Application.Contracts.Cqrs;
-using AspTemp.Shared.Application.Contracts.ResultContracts;
+using AspTemp.Shared;
+using AspTemp.Shared.Cqrs;
 using AspTemp.Shared.Domain;
+using AspTemp.Shared.ResultContracts;
 using Google.Apis.Auth;
 
 namespace AspTemp.Features.Auth.Commands;

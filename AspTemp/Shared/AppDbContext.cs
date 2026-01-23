@@ -2,7 +2,7 @@ using System.Reflection;
 using AspTemp.Features.Auth.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace AspTemp.Shared.Infrastructure;
+namespace AspTemp.Shared;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options)
     : DbContext(options)

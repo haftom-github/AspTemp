@@ -1,6 +1,6 @@
 using AspTemp.Features.Auth.Services;
-using AspTemp.Shared.Application.Contracts.Cqrs;
-using AspTemp.Shared.Application.Contracts.ResultContracts;
+using AspTemp.Shared.Cqrs;
+using AspTemp.Shared.ResultContracts;
 using Google.Apis.Auth;
 
 namespace AspTemp.Features.Auth.Commands;

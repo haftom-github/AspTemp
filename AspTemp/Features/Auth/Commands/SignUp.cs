@@ -1,9 +1,9 @@
 using AspTemp.Features.Auth.Domain;
 using AspTemp.Features.Auth.Services;
-using AspTemp.Shared.Application.Contracts;
-using AspTemp.Shared.Application.Contracts.Cqrs;
-using AspTemp.Shared.Application.Contracts.ResultContracts;
+using AspTemp.Shared;
+using AspTemp.Shared.Cqrs;
 using AspTemp.Shared.Domain;
+using AspTemp.Shared.ResultContracts;
 using FluentValidation;
 
 namespace AspTemp.Features.Auth.Commands;

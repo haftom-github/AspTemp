@@ -1,6 +1,6 @@
 using AspTemp.Shared.Infrastructure;
 
-namespace AspTemp.Shared.Application;
+namespace AspTemp.Shared;
 
 public interface IUnitOfWork
 {

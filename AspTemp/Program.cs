@@ -1,8 +1,7 @@
 using AspTemp.Features.Auth;
 using AspTemp.Features.Auth.Domain;
 using AspTemp.Features.Auth.Services;
-using AspTemp.Shared.Application;
-using AspTemp.Shared.Infrastructure;
+using AspTemp.Shared;
 using Microsoft.EntityFrameworkCore;
 
 var assembly = typeof(Program).Assembly;
@@ -14,8 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
-builder.Services.ConfigureApplication(assembly);
-builder.Services.ConfigureInfrastructure();
+builder.Services.ConfigureShared(assembly);
 builder.Services.ConfigureAuth(builder.Configuration);
 
 var app = builder.Build();

@@ -1,4 +1,5 @@
 using AspTemp.Features.Auth.Domain;
+using AspTemp.Shared;
 using AspTemp.Shared.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 

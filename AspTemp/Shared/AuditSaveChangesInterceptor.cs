@@ -1,9 +1,9 @@
+using System.Security.Claims;
 using AspTemp.Shared.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using System.Security.Claims;
 
-namespace AspTemp.Shared.Infrastructure.Interceptors;
+namespace AspTemp.Shared;
 
 public class AuditSaveChangesInterceptor(IHttpContextAccessor httpContextAccessor) 
     : SaveChangesInterceptor
