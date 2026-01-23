@@ -1,20 +1,17 @@
 using System.Security.Claims;
-using AspTemp.Features.Auth.Commands;
-using AspTemp.Features.Auth.Domain;
 
 namespace AspTemp.Features.Auth.Services;
 
 public interface ICurrentUserService
 {
-    Task<User?> GetAsync(CancellationToken ct = default);
+    Guid? GetUserId();
 }
 
 public class CurrentUserService(
-    IUserRepo userRepo,
     IHttpContextAccessor httpContextAccessor
 ) : ICurrentUserService
 {
-    public async Task<User?> GetAsync(CancellationToken ct = default)
+    public Guid? GetUserId()
     {
         var httpContext = httpContextAccessor.HttpContext;
         if (httpContext == null)
@@ -29,8 +26,6 @@ public class CurrentUserService(
         if (string.IsNullOrEmpty(idClaim))
             return null;
 
-        if (!Guid.TryParse(idClaim, out var guid)) return null;
-        var user = await userRepo.GetByIdAsync(guid, ct);
-        return user;
+        return Guid.TryParse(idClaim, out var id) ? id : null;
     }
 }

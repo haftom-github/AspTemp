@@ -12,12 +12,17 @@ public record UserProfileDto(
 );
 
 public class MeHandler(
-    ICurrentUserService currentUserService
+    ICurrentUserService currentUserService,
+    IUserRepo userRepo
 ) : IRRequestHandler<Me, UserProfileDto>
 {
     public async Task<Result<UserProfileDto>> Handle(Me request, CancellationToken cancellationToken)
     {
-        var user = await currentUserService.GetAsync(cancellationToken);
+        var userId = currentUserService.GetUserId();
+        var user = userId.HasValue 
+            ? await userRepo.GetByIdAsync(userId.Value, cancellationToken) 
+            : null;
+        
         if (user == null)
             return Failure.Unauthorized();
 

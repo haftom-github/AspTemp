@@ -1,5 +1,3 @@
-using AspTemp.Shared.Infrastructure;
-
 namespace AspTemp.Shared;
 
 public interface IUnitOfWork

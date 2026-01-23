@@ -1,6 +1,4 @@
-using AspTemp.Shared.Application.Contracts.ResultContracts;
 using AspTemp.Shared.Domain;
-
 namespace AspTemp.Shared.ResultContracts;
 
 public class Result<T>

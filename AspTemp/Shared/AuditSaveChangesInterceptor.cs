@@ -1,17 +1,16 @@
-using System.Security.Claims;
+using AspTemp.Features.Auth.Services;
 using AspTemp.Shared.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace AspTemp.Shared;
 
-public class AuditSaveChangesInterceptor(IHttpContextAccessor httpContextAccessor) 
+public class AuditSaveChangesInterceptor(ICurrentUserService currentUserService) 
     : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
-        // Resolve current user id synchronously for the sync path (avoid changing EF sync flow)
-        var userId = GetUserIdFromHttpContext();
+        var userId = currentUserService.GetUserId();
         UpdateEntities(eventData.Context, userId);
         return base.SavingChanges(eventData, result);
     }
@@ -19,22 +18,9 @@ public class AuditSaveChangesInterceptor(IHttpContextAccessor httpContextAccesso
     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData,
         InterceptionResult<int> result, CancellationToken cancellationToken = default)
     {
-        var userId = GetUserIdFromHttpContext();
+        var userId = currentUserService.GetUserId();
         UpdateEntities(eventData.Context, userId);
         return base.SavingChangesAsync(eventData, result, cancellationToken);
-    }
-
-    private Guid? GetUserIdFromHttpContext()
-    {
-        var httpContext = httpContextAccessor.HttpContext;
-        if (httpContext == null) return null;
-
-        var user = httpContext.User;
-        if (user.Identity?.IsAuthenticated != true) return null;
-
-        var idClaim = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        if (string.IsNullOrEmpty(idClaim)) return null;
-        return Guid.TryParse(idClaim, out var guid) ? guid : null;
     }
 
     private static void UpdateEntities(DbContext? context, Guid? userId)
